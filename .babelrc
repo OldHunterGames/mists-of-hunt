@@ -1,0 +1,28 @@
+{
+    "plugins": [
+        "transform-class-properties",
+        "syntax-decorators",
+        "transform-decorators-legacy",
+        "lodash",
+        "transform-flow-strip-types",
+        ["react-css-modules", {
+            "generateScopedName": "[local]___[sha256:hash:base64:5]",
+            "filetypes": {
+                ".less": {
+                    "syntax": "postcss-less"
+                }
+            }
+        }]
+    ],
+    "presets": [
+        [
+            "env", {
+                "targets": {
+                    "browsers": ["last 3 versions"]
+                }
+            }
+        ],
+        "react",
+        "stage-0"
+    ]
+}

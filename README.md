@@ -1,2 +1,2 @@
 # mists-of-hunt
-The HTML-5 MER game.
+The HTML5 MER game.
