@@ -1,7 +1,20 @@
 // @flow
 
-import React from 'react';
+import React, { Component } from 'react';
 
-export default () => (
-    <div>Mists of Hunt</div>
-);
+import getEmptyCharacter from 'helpers/character/get-empty';
+
+type Props = {};
+
+export default class MainPage extends Component<Props> {
+    constructor() {
+        super();
+
+        console.log('Empty character', getEmptyCharacter()); // eslint-disable-line
+    }
+    render() {
+        return (
+            <div>Mists of Hunt</div>
+        );
+    }
+}
