@@ -18,38 +18,38 @@ const outputFolders = {
     media: 'media/'
 };
 
+const fileNames = {
+    js: `${outputFolders.js}[name].[chunkhash].js`,
+    css: `${outputFolders.css}[name].[chunkhash].css`
+};
+
 const host = 'localhost';
 const port = 8777;
 
 const appIndex = './src/index';
-const entry = {
-    app: appIndex,
-    vendor: [
-        'babel-polyfill',
-        'es6-promise',
-        'react-dom',
-        'react-redux',
-        'react-router',
-        'react',
-        'redux-thunk',
-        'redux',
-        'recompose',
-        'classnames'
-    ]
-};
+const entry = [
+    appIndex
+];
 
 const extractVendors = new ExtractTextPlugin({
-    filename: 'vendor.css'
+    filename: fileNames.css
 });
 
 const extractLESS = new ExtractTextPlugin({
-    filename: 'main.css',
+    filename: fileNames.css,
     ignoreOrder: true
 });
 
 const plugins = [
     extractVendors,
     extractLESS,
+    new webpack.optimize.CommonsChunkPlugin({
+        name: 'vendor',
+        filename: fileNames.js,
+        minChunks(module) {
+            return module.context && module.context.indexOf('node_modules') !== -1;
+        }
+    }),
     new webpack.NamedModulesPlugin(),
     new HtmlWebpackPlugin({
         template: path.join(srcPath, 'index.html'),
@@ -92,7 +92,7 @@ const loaders = [
     {
         test: /\.(less|css)$/,
         include: [
-            path.resolve(__dirname, 'node_modules')
+            path.resolve(__dirname, 'node_modules/semantic-ui-less/')
         ],
         loader: extractVendors.extract({
             fallback: 'style-loader',
@@ -109,7 +109,17 @@ const loaders = [
                     loader: 'postcss-loader',
                     options: postcssOptions
                 },
-                'less-loader'
+                {
+                    loader: 'semantic-ui-less-module-loader',
+                    options: {
+                        themeConfigPath: path.resolve(__dirname, './config/styles/theme.config'),
+                        siteFolder: path.resolve(__dirname, './config/styles/site'),
+                        globalVars: Object.assign(
+                            {},
+                            require('./config/styles/variables.js')
+                        )
+                    }
+                }
             ]
         })
     },
@@ -135,7 +145,15 @@ const loaders = [
                     loader: 'postcss-loader',
                     options: postcssOptions
                 },
-                'less-loader'
+                {
+                    loader: 'less-loader',
+                    options: {
+                        globalVars: Object.assign(
+                            {},
+                            require('./config/styles/variables.js')
+                        )
+                    }
+                }
             ]
         })
     },
@@ -212,7 +230,7 @@ const config = {
     output: {
         path: buildPath,
         publicPath,
-        filename: `${outputFolders.js}[name].js`
+        filename: fileNames.js
     },
     module: {
         loaders

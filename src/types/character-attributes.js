@@ -2,9 +2,9 @@
 
 import type { CharacterAttributeValue } from 'types/character-attribute-value';
 
-export type CharacterAttributes = {|
+export type CharacterAttributes = {
     might: CharacterAttributeValue,
-    talent: CharacterAttributeValue,
+    mind: CharacterAttributeValue,
     charm: CharacterAttributeValue,
     cunning: CharacterAttributeValue
-|};
+};
