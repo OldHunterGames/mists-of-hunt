@@ -12,6 +12,11 @@
                     "syntax": "postcss-less"
                 }
             }
+        }],
+        ["transform-semantic-ui-react-imports", {
+            "convertMemberImports": true,
+            "importType": "es",
+            "addLessImports": true
         }]
     ],
     "presets": [

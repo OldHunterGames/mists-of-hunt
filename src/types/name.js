@@ -1,7 +1,7 @@
 // @flow
 
-export type Name = {|
+export type Name = {
     first: string,
     last: string,
     middle: string
-|};
+};
