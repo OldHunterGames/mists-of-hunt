@@ -4,7 +4,7 @@ import React, { Component } from 'react';
 import { Icon } from 'semantic-ui-react';
 import cx from 'classnames';
 
-import normalizeAttribute from 'helpers/character/attributes/normalize';
+import normalizeAttribute from 'game/character/attributes/normalize-value';
 
 import styles from './styles.less'; // eslint-disable-line no-unused-vars
 

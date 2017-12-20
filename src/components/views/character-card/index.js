@@ -3,9 +3,10 @@
 import React, { Component } from 'react';
 import { Card } from 'semantic-ui-react';
 
-import type { Character } from 'types/character';
+import Character from 'game/character';
 
 import Attributes from './attributes';
+import Traits from './traits';
 
 type Props = {
     character: Character
@@ -13,7 +14,7 @@ type Props = {
 
 export default class CharacterCard extends Component<Props> {
     renderName() {
-        const { name } = this.props.character;
+        const { name } = this.props.character.data;
 
         return [
             name.first,
@@ -34,8 +35,14 @@ export default class CharacterCard extends Component<Props> {
                     <Card.Header>{this.renderName()}</Card.Header>
                 </Card.Content>
                 <Card.Content extra>
+                    <Card.Header size="small">Трейты</Card.Header>
+                    <Traits
+                        traits={character.getTraits()}
+                    />
+                </Card.Content>
+                <Card.Content extra>
                     <Attributes
-                        attributes={character.attributes}
+                        attributes={character.getAttributes()}
                     />
                 </Card.Content>
             </Card>

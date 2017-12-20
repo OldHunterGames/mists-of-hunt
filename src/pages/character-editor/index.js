@@ -3,11 +3,9 @@
 import React, { Component } from 'react';
 import { Segment, Header } from 'semantic-ui-react';
 
-import getEmptyCharacter from 'helpers/character/get-empty';
+import Character from 'game/character';
 
 import CharacterCard from 'views/character-card';
-
-import type { Character } from 'types/character';
 
 type Props = {};
 
@@ -19,27 +17,33 @@ export default class CharacterEditor extends Component<Props, State> {
     constructor() {
         super();
 
-        const defaultCharacter = getEmptyCharacter();
+        const character = new Character({
+            name: {
+                first: 'Джек',
+                middle: '',
+                last: ''
+            },
+            traits: [
+                'gender.male',
+                'race.ghoul'
+            ]
+        });
 
         this.state = {
-            character: {
-                ...defaultCharacter,
-                name: {
-                    ...defaultCharacter.name,
-                    first: 'Джек'
-                }
-            }
+            character
         };
     }
 
     render() {
+        const { character } = this.state;
+
         return (
             <Segment>
                 <Header>
                     Редактор персонажа
                 </Header>
                 <CharacterCard
-                    character={this.state.character}
+                    character={character}
                 />
             </Segment>
         );
