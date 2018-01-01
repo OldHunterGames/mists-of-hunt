@@ -5,7 +5,6 @@ import type { Character as CharacterData } from 'types/character';
 import getDefaultAttributes from './attributes/get-default';
 import normalizeAttributes from './attributes/normalize-attributes';
 
-import getTraitByKey from './trait/get-by-key';
 import applyModifiers from './trait/apply-modifiers';
 
 import getEmptyName from './name/get-empty';
@@ -30,11 +29,11 @@ export default class Character {
     data: CharacterData;
 
     getTraits() {
-        return this.data.traits.map(getTraitByKey);
+        return this.data.traits;
     }
 
     getAttributes() {
-        const attributes = this.getTraits().reduce(
+        const attributes = this.data.traits.reduce(
             applyModifiers,
             getDefaultAttributes()
         );

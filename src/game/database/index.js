@@ -1,7 +1,5 @@
 // @flow
 
-import getTraits from './traits';
+import Register from 'utils/register';
 
-export default {
-    traits: getTraits()
-};
+export default new Register();

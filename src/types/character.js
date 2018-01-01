@@ -1,9 +1,9 @@
 // @flow
 
 import type { Name } from 'types/name';
-import type { TraitKey } from 'types/trait';
+import type { Trait } from 'types/trait';
 
 export type Character = {
     name: Name,
-    traits: Array<TraitKey>
+    traits: Array<Trait>
 };
