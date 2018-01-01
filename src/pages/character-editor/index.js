@@ -3,6 +3,9 @@
 import React, { Component } from 'react';
 import { Segment, Header } from 'semantic-ui-react';
 
+import { MALE } from 'game/database/trait/gender';
+import { GHOUL } from 'game/database/trait/race';
+
 import Character from 'game/character';
 
 import CharacterCard from 'views/character-card';
@@ -24,8 +27,8 @@ export default class CharacterEditor extends Component<Props, State> {
                 last: ''
             },
             traits: [
-                'gender.male',
-                'race.ghoul'
+                MALE,
+                GHOUL
             ]
         });
 

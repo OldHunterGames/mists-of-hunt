@@ -2,6 +2,8 @@
 
 import React, { Component } from 'react';
 
+import database from 'game/database';
+
 import type { Trait } from 'types/trait';
 
 type Props = {|
@@ -12,9 +14,11 @@ type Props = {|
 
 export default class CharacterTraitsView extends Component<Props> {
     renderTrait(trait: Trait) {
+        const key = database.getIndex(trait);
+
         return (
-            <div key={trait.key}>
-                {trait.key}
+            <div key={key}>
+                {key}
             </div>
         );
     }
