@@ -2,4 +2,4 @@
 
 import register from '../';
 
-export default register.getRegister('trait');
+export default register.extend('trait');

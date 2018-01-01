@@ -9,23 +9,38 @@ const keygen = (index: string, prefix: string) => {
 };
 
 export default class Register {
-    indexMap: Map<*, string> = new Map();
-    itemMap: Map<string, *> = new Map();
+    prefix: string = '';
+    maps: {
+        index: Map<*, string>,
+        item: Map<string, *>
+    } = {
+        index: new Map(),
+        item: new Map()
+    };
 
-    set(item: any, index: string) {
-        this.indexMap.set(item, index);
-        this.itemMap.set(index, item);
+    set<Item>(item: Item, index: string): Item {
+        const finalIndex = keygen(index, this.prefix);
+
+        this.maps.index.set(item, finalIndex);
+        this.maps.item.set(finalIndex, item);
 
         return item;
     }
 
     getIndex(item: any) {
-        return this.indexMap.get(item);
+        return this.maps.index.get(item);
     }
 
     getItem(index: string) {
-        return this.itemMap.get(index);
+        return this.maps.item.get(index);
     }
 
-    getRegister = (prefix: string) => (item: any, index: string) => this.set(item, keygen(index, prefix));
+    extend(prefix: string): Register {
+        const newInstance = new Register();
+
+        return Object.assign(newInstance, {
+            maps: this.maps,
+            prefix: keygen(prefix, this.prefix)
+        });
+    }
 }
