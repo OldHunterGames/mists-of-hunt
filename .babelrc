@@ -17,6 +17,9 @@
             "convertMemberImports": true,
             "importType": "es",
             "addLessImports": true
+        }],
+        ["react-intl", {
+            "messagesDir": "./build/i18n/"
         }]
     ],
     "presets": [
