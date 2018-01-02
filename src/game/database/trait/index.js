@@ -1,5 +1,13 @@
 // @flow
 
-import register from '../';
+import ALIGNMENT from './alignment';
+import GENDER from './gender';
+import RACE from './race';
 
-export default register.extend('trait');
+export default (next) => {
+    next({
+        ALIGNMENT,
+        GENDER,
+        RACE
+    });
+};
