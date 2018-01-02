@@ -182,7 +182,7 @@ const loaders = [
             {
                 loader: 'file-loader',
                 options: {
-                    name: `${outputFolders.fonts}[name].[sha256:hash:base64:6].[ext]`
+                    name: `${outputFolders.media}[name].[sha256:hash:base64:6].[ext]`
                 }
             }
         ]

@@ -2,4 +2,8 @@
 
 import { combineReducers } from 'redux';
 
-export default combineReducers({});
+import i18n from './i18n';
+
+export default combineReducers({
+    i18n
+});

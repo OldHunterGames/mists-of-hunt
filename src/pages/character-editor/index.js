@@ -1,6 +1,7 @@
 // @flow
 
 import React, { Component } from 'react';
+import { injectIntl } from 'react-intl';
 import { Segment, Header } from 'semantic-ui-react';
 
 import { MALE } from 'game/database/trait/gender';
@@ -10,13 +11,15 @@ import Character from 'game/character';
 
 import CharacterCard from 'views/character-card';
 
+import i18n from './i18n';
+
 type Props = {};
 
 type State = {|
     character: Character
 |};
 
-export default class CharacterEditor extends Component<Props, State> {
+class CharacterEditor extends Component<Props, State> {
     constructor() {
         super();
 
@@ -38,12 +41,13 @@ export default class CharacterEditor extends Component<Props, State> {
     }
 
     render() {
+        const { formatMessage } = this.props.intl;
         const { character } = this.state;
 
         return (
             <Segment>
                 <Header>
-                    Редактор персонажа
+                    {formatMessage(i18n.title)}
                 </Header>
                 <CharacterCard
                     character={character}
@@ -52,3 +56,5 @@ export default class CharacterEditor extends Component<Props, State> {
         );
     }
 }
+
+export default injectIntl(CharacterEditor);
