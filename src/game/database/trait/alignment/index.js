@@ -1,5 +1,11 @@
 // @flow
 
-import parent from '../';
+import ETHIC from './ethic';
+import MORAL from './moral';
 
-export default parent.extend('alignment');
+export default (next) => {
+    next({
+        ETHIC,
+        MORAL
+    });
+};

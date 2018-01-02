@@ -1,28 +1,32 @@
 // @flow
 
-import parent from '../';
+import type { Trait } from 'types/trait';
 
-const register = parent.extend('gender');
-
-console.log(register);
-
-export const MALE = register.set({
+export const MALE: Trait = {
     modifiers: {
         might: 1,
         charm: -1
     }
-}, 'male');
+};
 
-export const FEMALE = register.set({
+export const FEMALE: Trait = {
     modifiers: {
         might: -1,
         charm: 1
     }
-}, 'female');
+};
 
-export const FUTANARI = register.set({
+export const FUTANARI: Trait = {
     modifiers: {
         mind: -1,
         cunning: 1
     }
-}, 'futanari');
+};
+
+export default (next) => {
+    next({
+        MALE: () => MALE,
+        FEMALE: () => FEMALE,
+        FUTANARI: () => FUTANARI
+    });
+};

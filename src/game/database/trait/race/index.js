@@ -1,29 +1,36 @@
 // @flow
 
-import parent from '../';
+import type { Trait } from 'types/trait';
 
-const register = parent.extend('race');
+export const HUMAN: Trait = {};
 
-export const HUMAN = register.set({}, 'human');
-
-export const FAY = register.set({
+export const FAY: Trait = {
     modifiers: {
         might: -1,
         charm: 1
     }
-}, 'fay');
+};
 
-export const FURY = register.set({
+export const FURY: Trait = {
     modifiers: {
         might: 1,
         mind: -1
     }
-}, 'fury');
+};
 
-export const GHOUL = register.set({
+export const GHOUL: Trait = {
     modifiers: {
         might: 1,
         cunning: 1,
         charm: -2
     }
-}, 'ghoul');
+};
+
+export default (next) => {
+    next({
+        HUMAN: () => HUMAN,
+        FAY: () => FAY,
+        FURY: () => FURY,
+        GHOUL: () => GHOUL
+    });
+};

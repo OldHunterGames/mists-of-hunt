@@ -2,18 +2,21 @@
 
 import type { Trait } from 'types/trait';
 
-import parent from '../';
-
-const register = parent.extend('ethic');
-
-export const CHAOTIC: Trait = register.set({
+export const CHAOTIC: Trait = {
     modifiers: {
         might: 1
     }
-}, 'chaotic');
+};
 
-export const LAWFUL: Trait = register.set({
+export const LAWFUL: Trait = {
     modifiers: {
         mind: 1
     }
-}, 'lawful');
+};
+
+export default (next) => {
+    next({
+        CHAOTIC: () => CHAOTIC,
+        LAWFUL: () => LAWFUL
+    });
+};
