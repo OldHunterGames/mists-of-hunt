@@ -2,12 +2,10 @@
 
 import React, { Component } from 'react';
 import { injectIntl } from 'react-intl';
-import { Segment, Header } from 'semantic-ui-react';
-
-import { MALE } from 'game/database/trait/gender';
-import { GHOUL } from 'game/database/trait/race';
+import { Segment, Header, Button } from 'semantic-ui-react';
 
 import Character from 'game/character';
+import genCharacter from 'game/character/generator';
 
 import CharacterCard from 'views/character-card';
 
@@ -23,21 +21,15 @@ class CharacterEditor extends Component<Props, State> {
     constructor() {
         super();
 
-        const character = new Character({
-            name: {
-                first: 'Джек',
-                middle: '',
-                last: ''
-            },
-            traits: [
-                MALE,
-                GHOUL
-            ]
-        });
-
         this.state = {
-            character
+            character: genCharacter()
         };
+    }
+
+    handleRandomize = () => {
+        this.setState({
+            character: genCharacter()
+        });
     }
 
     render() {
@@ -52,6 +44,9 @@ class CharacterEditor extends Component<Props, State> {
                 <CharacterCard
                     character={character}
                 />
+                <Button onClick={this.handleRandomize}>
+                    Randomize
+                </Button>
             </Segment>
         );
     }

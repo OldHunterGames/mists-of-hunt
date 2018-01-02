@@ -10,6 +10,4 @@ db.registerTree({
     TRAIT
 });
 
-console.log(db);
-
 export default db;

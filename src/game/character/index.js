@@ -15,7 +15,9 @@ const emptyCharacter = {
 };
 
 export default class Character {
-    constructor(data: CharacterData) {
+    data: CharacterData;
+
+    constructor(data?: CharacterData) {
         this.data = {
             ...emptyCharacter,
             ...data,
@@ -25,8 +27,6 @@ export default class Character {
             }
         };
     }
-
-    data: CharacterData;
 
     getTraits() {
         return this.data.traits;
