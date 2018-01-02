@@ -1,5 +1,7 @@
 // @flow
 
+import frequenciesRandom from 'utils/randomizers/frequencies';
+
 import type { Trait } from 'types/trait';
 
 export const HUMAN: Trait = {};
@@ -26,6 +28,21 @@ export const GHOUL: Trait = {
     }
 };
 
+export const RACE = {
+    entries: {
+        HUMAN,
+        FAY,
+        FURY,
+        GHOUL
+    },
+    getRandom: frequenciesRandom([
+        [3, HUMAN],
+        [1, FAY],
+        [1, FURY],
+        [1, GHOUL]
+    ])
+};
+
 export default (next) => {
     next({
         HUMAN: () => HUMAN,
@@ -33,4 +50,6 @@ export default (next) => {
         FURY: () => FURY,
         GHOUL: () => GHOUL
     });
+
+    return RACE;
 };

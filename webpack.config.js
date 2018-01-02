@@ -239,7 +239,8 @@ const config = {
         modules: [
             path.resolve(__dirname, 'src'),
             path.resolve(__dirname, 'node_modules'),
-            path.resolve(__dirname, 'src/components')
+            path.resolve(__dirname, 'src/components'),
+            path.resolve(__dirname, 'src/game/database')
         ],
         extensions: ['.js', '.jsx', '.es6', '.less', '.yml', '.json']
     },
