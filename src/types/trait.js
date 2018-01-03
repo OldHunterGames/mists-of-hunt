@@ -9,3 +9,7 @@ export type TraitModifiers = {
 export type Trait = {
     modifiers?: TraitModifiers
 };
+
+export type TraitsMap = {
+    [name: string]: Trait
+};

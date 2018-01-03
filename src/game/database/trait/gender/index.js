@@ -2,7 +2,7 @@
 
 import type { Trait } from 'types/trait';
 
-import getRandom from './random';
+import getRandomizer from './random';
 
 export const MALE: Trait = {
     modifiers: {
@@ -31,7 +31,11 @@ export const GENDER = {
         FEMALE,
         FUTANARI
     },
-    getRandom
+    getRandom: getRandomizer({
+        MALE,
+        FEMALE,
+        FUTANARI
+    })
 };
 
 export default (next) => {
