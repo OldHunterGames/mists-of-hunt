@@ -1,13 +1,15 @@
 // @flow
 
-import React, { Component } from 'react';
+import * as React from 'react';
 
 import AttributeIcon from 'elements/attribute-icon';
 
 import * as ATTRIBUTE_LABEL from 'constants/dictionaries/attributes';
 
-import type { CharacterAttributes } from 'types/character-attributes';
-import type { CharacterAttributeValue } from 'types/character-attribute-value';
+import type {
+    CharacterAttributes,
+    CharacterAttributeValue
+} from 'types/character-attributes';
 
 import styles from './styles.less'; // eslint-disable-line no-unused-vars
 
@@ -17,7 +19,7 @@ type Props = {|
     styleName?: string
 |};
 
-export default class CharacterAttributesView extends Component<Props> {
+export default class CharacterAttributesView extends React.Component<Props> {
     renderAttribute(title: string, value: CharacterAttributeValue) {
         return (
             <div styleName="attribute">

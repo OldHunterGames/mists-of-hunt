@@ -1,10 +1,9 @@
-const webpack = require('webpack');
 const path = require('path');
 const urlRegex = require('url-regex');
 
 const WriteFilePlugin = require('write-file-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const autoprefixer = require('autoprefixer');
 
 const srcPath = path.join(__dirname, './src');
@@ -14,13 +13,7 @@ const outputFolders = {
     js: 'js/',
     css: 'css/',
     img: 'img/',
-    fonts: 'fonts/',
-    media: 'media/'
-};
-
-const fileNames = {
-    js: `${outputFolders.js}[name].[chunkhash].js`,
-    css: `${outputFolders.css}[name].[chunkhash].css`
+    fonts: 'fonts/'
 };
 
 const host = 'localhost';
@@ -31,26 +24,11 @@ const entry = [
     appIndex
 ];
 
-const extractVendors = new ExtractTextPlugin({
-    filename: fileNames.css
-});
-
-const extractLESS = new ExtractTextPlugin({
-    filename: fileNames.css,
-    ignoreOrder: true
-});
-
 const plugins = [
-    extractVendors,
-    extractLESS,
-    new webpack.optimize.CommonsChunkPlugin({
-        name: 'vendor',
-        filename: fileNames.js,
-        minChunks(module) {
-            return module.context && module.context.indexOf('node_modules') !== -1;
-        }
+    new MiniCssExtractPlugin({
+        filename: `${outputFolders.css}[name].[chunkhash].css`,
+        chunkFilename: `${outputFolders.css}[id].[chunkhash].css`
     }),
-    new webpack.NamedModulesPlugin(),
     new HtmlWebpackPlugin({
         template: path.join(srcPath, 'index.html'),
         path: buildPath,
@@ -69,99 +47,81 @@ const postcssOptions = {
     ]
 };
 
-// Common loaders
-const loaders = [
+// Common rules
+const rules = [
     {
         test: /\.(js|jsx)$/,
         exclude: /node_modules/,
         loaders: [
-            'cache-loader',
             'babel-loader'
         ]
-    },
-    {
-        test: /\.(js|jsx)$/,
-        loader: 'eslint-loader',
-        exclude: /node_modules/,
-        options: {
-            configFile: '.eslintrc',
-            failOnError: false,
-            fix: true
-        }
     },
     {
         test: /\.(less|css)$/,
         include: [
             path.resolve(__dirname, 'node_modules/semantic-ui-less/')
         ],
-        loader: extractVendors.extract({
-            fallback: 'style-loader',
-            use: [
-                'cache-loader',
-                {
-                    loader: 'css-loader',
-                    options: {
-                        minimize: false,
-                        importLoaders: 2
-                    }
-                },
-                {
-                    loader: 'postcss-loader',
-                    options: postcssOptions
-                },
-                {
-                    loader: 'semantic-ui-less-module-loader',
-                    options: {
-                        themeConfigPath: path.resolve(__dirname, './config/styles/theme.config'),
-                        siteFolder: path.resolve(__dirname, './config/styles/site'),
-                        globalVars: Object.assign(
-                            {},
-                            require('./config/styles/variables.js')
-                        )
-                    }
+        use: [
+            MiniCssExtractPlugin.loader,
+            {
+                loader: 'css-loader',
+                options: {
+                    minimize: false,
+                    importLoaders: 2
                 }
-            ]
-        })
+            },
+            {
+                loader: 'postcss-loader',
+                options: postcssOptions
+            },
+            {
+                loader: 'semantic-ui-less-module-loader',
+                options: {
+                    themeConfigPath: path.resolve(__dirname, './config/styles/theme.config'),
+                    siteFolder: path.resolve(__dirname, './config/styles/site'),
+                    globalVars: Object.assign(
+                        {},
+                        require('./config/styles/variables.js')
+                    )
+                }
+            }
+        ]
     },
     {
         test: /\.less$/,
         exclude: [
             path.resolve(__dirname, 'node_modules')
         ],
-        loader: extractLESS.extract({
-            fallback: 'style-loader',
-            use: [
-                'cache-loader',
-                {
-                    loader: 'css-loader',
-                    options: {
-                        modules: true,
-                        localIdentName: '[local]___[sha256:hash:base64:5]',
-                        minimize: false,
-                        importLoaders: 2
-                    }
-                },
-                {
-                    loader: 'postcss-loader',
-                    options: postcssOptions
-                },
-                {
-                    loader: 'less-loader',
-                    options: {
-                        globalVars: Object.assign(
-                            {},
-                            require('./config/styles/variables.js')
-                        )
-                    }
+        use: [
+            MiniCssExtractPlugin.loader,
+            {
+                loader: 'css-loader',
+                options: {
+                    modules: true,
+                    localIdentName: '[local]___[sha256:hash:base64:5]',
+                    minimize: false,
+                    importLoaders: 2
                 }
-            ]
-        })
+            },
+            {
+                loader: 'postcss-loader',
+                options: postcssOptions
+            },
+            {
+                loader: 'less-loader',
+                options: {
+                    globalVars: Object.assign(
+                        {},
+                        require('./config/styles/variables.js')
+                    )
+                }
+            }
+        ]
     },
     {
         test: /\.svg$/,
         exclude: /node_modules/,
         loaders: [
-            'cache-loader',
             'babel-loader',
             {
                 loader: 'react-svg-loader',
@@ -175,25 +135,11 @@ const loaders = [
         ]
     },
     {
-        test: /\.(mp4|webm|webp)/,
-        exclude: /node_modules/,
-        loaders: [
-            'cache-loader',
-            {
-                loader: 'file-loader',
-                options: {
-                    name: `${outputFolders.media}[name].[sha256:hash:base64:6].[ext]`
-                }
-            }
-        ]
-    },
-    {
         test: /\.(woff|woff2|ttf|eot|svg)/,
         exclude: [
             path.resolve(__dirname, 'src')
         ],
         loaders: [
-            'cache-loader',
             {
                 loader: 'file-loader',
                 options: {
@@ -205,7 +151,6 @@ const loaders = [
     {
         test: /\.(png|jpg|gif)/,
         loaders: [
-            'cache-loader',
             {
                 loader: 'file-loader',
                 options: {
@@ -217,7 +162,6 @@ const loaders = [
     {
         test: urlRegex({ exact: true }),
         use: [
-            'cache-loader',
             'url-loader'
         ]
     }
@@ -225,15 +169,14 @@ const loaders = [
 
 const publicPath = '/';
 const config = {
-    devtool: 'source-map',
     entry,
     output: {
         path: buildPath,
         publicPath,
-        filename: fileNames.js
+        filename: `${outputFolders.js}[name].[chunkhash].js`
     },
     module: {
-        loaders
+        rules
     },
     resolve: {
         modules: [
@@ -242,9 +185,22 @@ const config = {
             path.resolve(__dirname, 'src/components'),
             path.resolve(__dirname, 'src/game/database')
         ],
-        extensions: ['.js', '.jsx', '.es6', '.less', '.yml', '.json']
+        extensions: ['.js', '.jsx', '.es6', '.less', '.json']
     },
     plugins,
+    optimization: {
+        splitChunks: {
+            cacheGroups: {
+                vendors: {
+                    test: /[\\/]node_modules[\\/]/,
+                    name: 'vendors',
+                    chunks: 'initial',
+                    enforce: true
+                }
+            }
+        },
+        runtimeChunk: true
+    },
     devServer: {
         publicPath,
         contentBase: buildPath,

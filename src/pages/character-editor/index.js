@@ -1,6 +1,6 @@
 // @flow
 
-import React, { Component } from 'react';
+import * as React from 'react';
 import { injectIntl } from 'react-intl';
 import { Segment, Header, Button } from 'semantic-ui-react';
 
@@ -17,7 +17,7 @@ type State = {|
     character: Character
 |};
 
-class CharacterEditor extends Component<Props, State> {
+class CharacterEditor extends React.Component<Props, State> {
     constructor() {
         super();
 

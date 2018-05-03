@@ -1,6 +1,6 @@
 // @flow
 
-import React, { Component } from 'react';
+import * as React from 'react';
 import { Icon } from 'semantic-ui-react';
 import cx from 'classnames';
 
@@ -12,7 +12,7 @@ type Props = {|
     value: number
 |}
 
-export default class AttributeIcon extends Component<Props> {
+export default class AttributeIcon extends React.Component<Props> {
     render() {
         return (
             <Icon

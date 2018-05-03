@@ -2,7 +2,7 @@
 
 import { reduce, set } from 'lodash';
 
-import type { CharacterAttributes } from 'types/character-attribute-value';
+import type { CharacterAttributes } from 'types/character-attributes';
 
 import normalizeValue from './normalize-value';
 
