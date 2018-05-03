@@ -1,6 +1,6 @@
 // @flow
 
-import React, { Component } from 'react';
+import * as React from 'react';
 import { Card } from 'semantic-ui-react';
 
 import Character from 'game/character';
@@ -12,7 +12,7 @@ type Props = {
     character: Character
 };
 
-export default class CharacterCard extends Component<Props> {
+export default class CharacterCard extends React.Component<Props> {
     renderName() {
         const { name } = this.props.character.data;
 

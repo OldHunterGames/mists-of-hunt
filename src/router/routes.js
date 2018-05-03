@@ -1,6 +1,6 @@
 // @flow
 
-import React from 'react';
+import * as React from 'react';
 import { Route, Switch } from 'react-router';
 
 import Main from 'pages/main';

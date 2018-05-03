@@ -1,6 +1,6 @@
 // @flow
 
-import React, { Component } from 'react';
+import * as React from 'react';
 
 import database from 'game/database';
 
@@ -12,7 +12,7 @@ type Props = {|
     styleName?: string
 |};
 
-export default class CharacterTraitsView extends Component<Props> {
+export default class CharacterTraitsView extends React.Component<Props> {
     renderTrait(trait: Trait) {
         const key = database.getIndex(trait);
 

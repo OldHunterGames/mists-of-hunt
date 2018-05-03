@@ -5,7 +5,7 @@ import 'semantic-ui-less/definitions/globals/site.less';
 
 import 'babel-polyfill';
 
-import React from 'react';
+import * as React from 'react';
 import { Provider } from 'react-redux';
 
 import I18nContainer from 'containers/i18n';
