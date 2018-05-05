@@ -5,5 +5,6 @@ import type { Character } from './index';
 import getEmptyName from './name/get-empty';
 
 export default (): Character => ({
-    name: getEmptyName()
+    name: getEmptyName(),
+    traits: []
 });
