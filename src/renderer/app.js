@@ -1,3 +1,3 @@
-import * as React from 'react';
+// @flow
 
 export default () => 'Mists of Hunt';
