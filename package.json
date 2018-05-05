@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "description": "The HTML5 MER game",
   "repository": "https://github.com/OldHunterGames/mists-of-hunt.git",
-  "author": "OldHuntsman",
+  "author": "OldHuntsman <old_huntsman@yahoo.com>",
   "license": "GPL-3.0",
   "private": true,
   "scripts": {
