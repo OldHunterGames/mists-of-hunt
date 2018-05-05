@@ -3,7 +3,8 @@
 import type { Name } from './name';
 
 export type Character = {
-    name: Name
+    name: Name,
+    traits: string[]
 };
 
 export { default as getEmpty } from './get-empty';

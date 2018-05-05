@@ -17,6 +17,12 @@ export default class App extends React.Component<Props, State> {
         character: getRandomCharacter()
     }
 
+    handleRandomize = () => {
+        this.setState({
+            character: getRandomCharacter()
+        });
+    }
+
     render() {
         const { character } = this.state;
 
@@ -24,9 +30,14 @@ export default class App extends React.Component<Props, State> {
             <div>
                 <h1>Mists of Hunt</h1>
                 <h2>Character</h2>
-                <ul>
-                    <li>Name: {character.name.first}</li>
-                </ul>
+                <button onClick={this.handleRandomize}>
+                    Randomize
+                </button>
+                <div>Name: {character.name.first}</div>
+                <h3>Traits</h3>
+                {character.traits.map((traitKey) => (
+                    <div key={traitKey}>{traitKey}</div>
+                ))}
             </div>
         );
     }
