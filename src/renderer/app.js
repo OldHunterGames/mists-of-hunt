@@ -1,8 +1,13 @@
 // @flow
 
+import 'semantic-ui-less/definitions/globals/reset.less';
+import 'semantic-ui-less/definitions/globals/site.less';
+
 import * as React from 'react';
 
 import { getRandom as getRandomCharacter } from '@game/character';
+
+import CharacterCard from 'views/character-card';
 
 import type { Character } from '@game/character';
 
@@ -24,20 +29,15 @@ export default class App extends React.Component<Props, State> {
     }
 
     render() {
-        const { character } = this.state;
-
         return (
             <div>
                 <h1>Mists of Hunt</h1>
-                <h2>Character</h2>
                 <button onClick={this.handleRandomize}>
-                    Randomize
+                    Randomize character
                 </button>
-                <div>Name: {character.name.first}</div>
-                <h3>Traits</h3>
-                {character.traits.map((traitKey) => (
-                    <div key={traitKey}>{traitKey}</div>
-                ))}
+                <CharacterCard
+                    character={this.state.character}
+                />
             </div>
         );
     }
